@@ -4,7 +4,7 @@ namespace Core;
 /**
  * UserAgent
  *
- * This class will analayse client useragent string OR a given useragent string
+ * This class will analyze client useragent string OR a given useragent string
  *
  * 
  * @package Core\UserAgent
@@ -131,10 +131,12 @@ class UserAgent
 
 		if( !empty( $user_agent_string ) )
 		{
-			// Analayze Given String
+			// Analyze Given String
+			
+			// Set UserAgent
 			$this->string = $user_agent_string;
 
-			// Analayse
+			// Analyze
 			$this->analyzeString();
 		}
 		else 
@@ -143,11 +145,11 @@ class UserAgent
 
 			if( !( self::$clientInstance instanceof UserAgent )  )
 			{
-				// We Didnot Analayse Client UserAgent Yet
+				// We Didnot Analyze Client UserAgent Yet
 				
 				$this->string = $_SERVER['HTTP_USER_AGENT'];
 
-				// Analayse
+				// Analyze
 				$this->analyzeString();
 				
 				// Save Client Useragent Instance
@@ -169,7 +171,7 @@ class UserAgent
 	}
 
 	/**
-	 * Analayse User Agent String
+	 * Analyze User Agent String
 	 * @return Void
 	 */
 	private function analyzeString(){
@@ -180,11 +182,11 @@ class UserAgent
 		if( strpos( $this->string, 'Mobile' ) !== false || strpos( $this->string, 'Android' ) !== false )
 			$this->isMobile = 1;
 		
-		// Analayse Browser
-		$this->analayseBrowser();
+		// Analyze Browser
+		$this->analyzeBrowser();
 
-		// Analayse System String
-		$this->analaysePlatform();
+		// Analyze System String
+		$this->analyzePlatform();
 		
 	}
 
@@ -193,7 +195,7 @@ class UserAgent
 	 * 
 	 * @return Void
 	 */
-	private function analayseBrowser(){
+	private function analyzeBrowser(){
 
 		//							  1/ver 		  2/sys 	if Version/ exists			 3/ver       |OR| 4/sys 					 5/ver
 		if( preg_match( '/(?:Opera\/([0-9\.\w]+)\s\((.+?)\)(?:(?=.*Version\/).*Version\/([0-9\.\w]+)|.*))|\((.+?)\).+?Opera(?:[\s\/]([0-9\.\w]+))?/', $this->string, $opera ) )
@@ -264,9 +266,9 @@ class UserAgent
 	 * 
 	 * @return Void
 	 */
-	private function analaysePlatform(){
+	private function analyzePlatform(){
 		
-		// Analayse Platform Information
+		// Analyze Platform Information
 		
 		if( $this->systemString )
 		{
@@ -326,7 +328,7 @@ class UserAgent
 						// Intel Only
 						$this->isIntel = 1;
 
-						// Check Archtecture
+						// Check Architecture
 						if( $this->osShortVersion >= 7 )
 							$this->osArch = '64';
 						else
@@ -340,7 +342,7 @@ class UserAgent
 						else
 							$this->isIntel = 1;
 
-						// Check Archtecture
+						// Check Architecture
 						$this->checkArch();
 					}
 
@@ -357,7 +359,7 @@ class UserAgent
 				if( preg_match( '/Windows\s(?:NT\s)?([\.\d]+)/i', $this->systemString, $info ) )
 					$this->osShortVersion = $this->osVersion = $info[1];
 
-				// Check Archtecture
+				// Check Architecture
 				$this->checkArch();
 				
 
@@ -367,7 +369,7 @@ class UserAgent
 				// Linux
 				$this->osPlatform = 'Linux';
 
-				// Check Archtecture
+				// Check Architecture
 				$this->checkArch();	
 			}
 
@@ -387,7 +389,7 @@ class UserAgent
 		if( preg_match( '/((?:x86_64)|(?:x86-64)|(?:Win64)|(?:WOW64)|(?:x64)|(?:ia64)) | (amd64) | (ppc64) | (sparc64) | (IRIX64)/ix', $this->systemString, $info ) )
 		{
 
-			// Set 64 Archtecture
+			// Set 64 Architecture
 			$this->osArch = '64';
 			
 			// Set CPU Brand
@@ -403,7 +405,7 @@ class UserAgent
 		}
 		else
 		{
-			// Set 32 Archtecture
+			// Set 32 Architecture
 			$this->osArch = '32';
 
 			// Set CPU Brand
